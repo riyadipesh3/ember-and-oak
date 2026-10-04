@@ -1,0 +1,374 @@
+/* ============================================================================
+   TEMPLATE 02 - EMBER AND OAK
+   Design read: neighbourhood wood-fired restaurant. Dark charcoal canvas, one
+   ember accent used as a solid block of colour rather than a glow. Warm
+   neutrals held at one temperature, no cream surfaces anywhere. Bricolage
+   Grotesque for display against Karla for reading.
+   VARIANCE 8 / MOTION 4 / DENSITY 3
+
+   Theme lock: dark only. One accent (ember #e2542c). One radius system with
+   two documented steps. Shadows are tinted to the canvas hue, never pure black.
+   No neon, no ember gradients, no glow.
+   ========================================================================= */
+
+@import 'tailwindcss';
+
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/karla';
+
+/* --------------------------------------------------------------------------
+   TOKENS
+   -------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-body: 'Karla Variable', system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-canvas: #16130f;
+  --color-surface: #1e1a15;
+  --color-raised: #262019;
+  --color-ink: #f2ede6;
+  --color-body: #b6ada0;
+  --color-mute: #8b8277;
+  --color-hairline: #332b23;
+  --color-accent: #e2542c;
+  --color-accent-soft: #3a1f16;
+}
+
+:root {
+  --radius: 16px;
+  --radius-pill: 9999px;
+  --shadow: 0 18px 40px -24px rgba(10, 8, 6, 0.9);
+}
+
+/* --------------------------------------------------------------------------
+   RADIUS LOCK
+   One scale, two steps, nothing else deviates:
+     1. 16px (--radius)      frames, cards, fields, gallery tiles, panels
+     2. 9999px (--radius-pill) buttons and pills, because the brief asks for
+        a fully round button shape against the rounded card geometry
+   -------------------------------------------------------------------------- */
+* {
+  border-radius: var(--radius);
+}
+
+.btn,
+.pill {
+  border-radius: var(--radius-pill);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-canvas);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENTS
+   -------------------------------------------------------------------------- */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .display-xl {
+    font-size: clamp(2.6rem, 6.8vw, 5.25rem);
+  }
+
+  .display-lg {
+    font-size: clamp(2rem, 4.2vw, 3.25rem);
+  }
+
+  .display-md {
+    font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+    line-height: 1.05;
+  }
+
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.68;
+    max-width: 60ch;
+    color: var(--color-body);
+  }
+
+  /* Small mono label. Capped at ceil(sections / 3) across the page. */
+  .micro {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.8125rem 1.5rem;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease,
+      transform 120ms ease, border-color 160ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-canvas);
+  }
+
+  .btn-primary:hover:not([disabled]) {
+    background: #ee6440;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-hairline);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-ink);
+  }
+
+  /* Solid panel variant for use over the hero photograph. No transparent
+     button is ever placed on a photo. */
+  .btn-solid {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  .btn-solid:hover {
+    background: var(--color-accent);
+    color: var(--color-canvas);
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Menu row: name over a short line of detail, price pinned right.
+     Deliberately no row borders and no leader dots. */
+  .dish {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1.5rem;
+    align-items: baseline;
+    padding-block: 1.0625rem;
+  }
+
+  .dish__price {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Offset masonry: CSS columns, every second tile dropped on desktop. */
+  .masonry {
+    columns: 1;
+    column-gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .masonry {
+      columns: 2;
+      column-gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry {
+      columns: 3;
+      column-gap: 1.75rem;
+    }
+  }
+
+  .masonry > figure {
+    break-inside: avoid;
+    margin: 0 0 1.75rem;
+  }
+
+  /* Source photography is bright and varied. A gentle pull-down keeps every
+     tile sitting inside the charcoal canvas instead of punching white holes
+     in it. Enough to unify, not enough to look filtered. */
+  .masonry img {
+    filter: brightness(0.86) saturate(0.94) contrast(1.03);
+  }
+
+  @media (min-width: 1024px) {
+    .masonry > figure:nth-child(2n) {
+      margin-top: 3.5rem;
+    }
+  }
+
+  /* Hours accordion. Native details element, CSS drawn plus/minus, no icon
+     library needed. */
+  .acc__summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.0625rem;
+  }
+
+  .acc__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .acc__sign {
+    position: relative;
+    flex: none;
+    width: 14px;
+    height: 14px;
+    color: var(--color-accent);
+  }
+
+  .acc__sign::before,
+  .acc__sign::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+  }
+
+  .acc__sign::before {
+    left: 0;
+    top: 6.25px;
+    width: 14px;
+    height: 1.5px;
+  }
+
+  .acc__sign::after {
+    left: 6.25px;
+    top: 0;
+    width: 1.5px;
+    height: 14px;
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .acc[open] .acc__sign::after {
+    transform: scaleY(0);
+  }
+
+  .field {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+    padding: 0.8125rem 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    transition: border-color 160ms ease;
+  }
+
+  .field::placeholder {
+    color: var(--color-mute);
+  }
+
+  .field:hover {
+    border-color: #4a4036;
+  }
+
+  .field:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+
+  .field[aria-invalid='true'] {
+    border-color: var(--color-accent);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@source "./**/*.{tsx,ts}";
