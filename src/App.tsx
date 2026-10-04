@@ -164,44 +164,16 @@ const GALLERY = [
   {
     seed: 'ember-oak-timber-counter-cup',
     w: 1200,
-    h: 1200,
-    ratio: 'aspect-square',
-    alt: 'Reclaimed oak boards forming the counter surface, lit from one side',
-  },
-  {
-    seed: 'ember-oak-brick-warm',
-    w: 1000,
-    h: 1250,
-    ratio: 'aspect-4/5',
-    alt: 'Warm light on the brick behind the bar late in the evening',
-  },
-  {
-    seed: 'ember-oak-timber-steam-dark',
-    w: 1200,
     h: 1500,
     ratio: 'aspect-4/5',
-    alt: 'Steam rising off the pass in the low light before service',
+    alt: 'The oak plank surface of the counter, warmed by the lamps above it',
   },
   {
-    seed: 'ember-oak-window-shadow',
-    w: 1000,
-    h: 1333,
-    ratio: 'aspect-3/4',
-    alt: 'The weathered double door of the old workshop, opening onto the street',
-  },
-  {
-    seed: 'ember-oak-hearth-flame-glow',
+    seed: 'ember-oak-embers-at-dusk',
     w: 1200,
     h: 900,
     ratio: 'aspect-4/3',
-    alt: 'Pears, bread and a board laid out on a dark table',
-  },
-  {
-    seed: 'ember-oak-counter-dark',
-    w: 1100,
-    h: 1100,
-    ratio: 'aspect-square',
-    alt: 'The street outside after dark, strung with lights above the tables',
+    alt: 'Smoke lifting off the coals into the dark of the room',
   },
 ]
 
@@ -405,7 +377,7 @@ export default function App() {
         >
           <img
             src="https://picsum.photos/seed/ember-oak-hearth-flame-glow/2000/1200"
-            alt="Two yellow doors set into the red brick wall of the old workshop"
+            alt="The weathered double doors in the red brick wall of the old workshop"
             loading="eager"
             width={2000}
             height={1200}
@@ -417,7 +389,7 @@ export default function App() {
           />
 
           <div className="shell w-full pb-14 md:pb-20">
-            <p className="micro mb-6 text-[var(--color-body)]">Oak fired since 2016</p>
+            <p className="micro mb-6 text-[var(--color-ink)]/70">Oak fired since 2016</p>
             <h1 className="display display-xl max-w-4xl">
               <span className="block">Everything here</span>
               <span className="block">touches fire.</span>
@@ -553,7 +525,7 @@ export default function App() {
                 <div className="frame aspect-4/5 w-full">
                   <img
                     src="https://picsum.photos/seed/ember-oak-tables-before-service/1100/1375"
-                    alt="Two yellow doors set into the red brick wall of the old workshop"
+                    alt="The weathered double doors in the red brick wall of the old workshop"
                     loading="lazy"
                     width={1100}
                     height={1375}
@@ -864,20 +836,7 @@ export default function App() {
         {/* -------------------------------------------------------------- */}
         {/* FIND US - one full-width closing band. Layout family 6.         */}
         {/* -------------------------------------------------------------- */}
-        <section id="find-us" className="relative isolate overflow-hidden">
-          <img
-            src="https://picsum.photos/seed/ember-oak-embers-at-dusk/2000/900"
-            alt="The last of the light on the cloud bank behind the building"
-            loading="lazy"
-            width={2000}
-            height={900}
-            className="absolute inset-0 -z-20 h-full w-full object-cover"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-[#16130f]/86"
-          />
-
+        <section id="find-us" className="bg-[var(--color-raised)]">
           <div className="shell grid gap-12 py-20 lg:grid-cols-12 lg:gap-16 md:py-28">
             <Reveal className="lg:col-span-7">
               <div className="lg:pt-4">
